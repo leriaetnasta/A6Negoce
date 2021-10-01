@@ -1,0 +1,168 @@
+<!doctype html>
+                        <html>
+                            <head>
+                                <meta charset='utf-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                {% load static %}
+                                <title>{% block title %} Panier {% endblock  %}</title>
+                                {% block stylesheet %}                                
+                                <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
+                                <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+                                <link href='{% static "order.css" %}' rel='stylesheet'>
+                                
+                                {% endblock  %}
+                                </head>
+                                <body oncontextmenu='return false' class='snippet-body'>
+                                <nav class="bg-white">
+    <div class="d-flex align-items-center">
+        <div class="logo"> <a href="#" class="text-uppercase">A6 negoce</a> </div>
+        <div class="ml-auto"> <a href="#" class="text-uppercase">Back to shopping</a> </div>
+    </div>
+</nav>
+<header>
+    <div class="d-flex justify-content-center align-items-center pb-3">
+        <div class="px-sm-5 px-2">SHOPPING CART  </div>
+        <div class="px-sm-5 px-2  active">CHECKOUT<span class="fas fa-check"></span></div>
+        <div class="px-sm-5 px-2">FINISH</div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar-c bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+</header>
+<div class="wrapper">
+    <div class="h5 large">Entrer vos coordonnées</div>
+    <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1">
+            <div class="mobile h5">Address</div>
+            <div id="details" class="bg-white rounded pb-5">
+                <form method='POST'>
+                    {% csrf_token %}
+
+                    <div class="form-group"> <label class="text-muted">Address</label>
+                        <div class="d-flex jusify-content-start align-items-center rounded p-2"> {{form.address}} <span class="fas fa-check text-success pr-sm-2 pr-0"></span> </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-lg-6">
+                            <div class="form-group"> <label>City</label>
+                                 {{form.city}} <span class="fas fa-check text-success pr-2"></span>
+                            </div>
+                        </div>
+                        <div class="col-lg-6">
+                           
+                            <div class="form-group"> <label>Code postal</label>
+                                <div class="d-flex jusify-content-start align-items-center rounded p-2"> {{form.postal_code}} <span class="fas fa-check text-success pr-2"></span> </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                    </div>
+                
+            </div> <input type="checkbox" checked> <label>Shipping address is same as billing</label>
+            <div id="address" class="bg-light rounded mt-3">
+                <div class="h5 font-weight-bold text-primary"> Mode de paiement </div>
+                <div class="d-md-flex justify-content-md-start align-items-md-center pt-3">
+                    <div class="mr-auto"> 
+                        <div id="paypal-button-container"></div>
+                    </div>
+                    <div class="rounded py-2 px-3" id="register"> <a href="#"> <b>Quel moyen de paiement voulez-vous utiliser?</b> </a>
+                        <p class="text-muted">On n'accepte pas le paiement cash à la livraison</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1 pt-lg-0 pt-3">
+            <div id="cart" class="bg-white rounded">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="h6">RÉSUMÉ</div>
+                    <div class="h6"> <a href="#">Edit</a> </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="display-5">Sous-total</div>
+                    <div class="ml-auto font-weight-bold">{{cart_total_price}} DH</div>
+                </div>
+                <div class="d-flex align-items-center py-2 border-bottom">
+                    <div class="display-5">Article</div>
+                    <div class="ml-auto font-weight-bold">{{cart|length}}</div>
+                </div>
+                <div class="d-flex align-items-center py-2">
+                    <div class="display-5">Total TTC</div>
+                    <div class="ml-auto d-flex">
+                    <div class="text-primary text-uppercase px-3">MAD</div>
+                        <div class="font-weight-bold">{{cart_total_price}} DH</div>
+                    </div>
+                </div>
+            </div>
+            
+           
+            <div class="row pt-lg-3 pt-2 buttons mb-sm-0 mb-2">
+                <div class="col-md-6">
+                    <a class="btn text-uppercase" href="{%url 'shop:cart_detail'%}" >Modifier la commande</a>
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <input id= "payb" class="btn text-white ml-auto" type="submit" value="Passer la commande"> <span class="fas fa-lock"></span>
+                </div>
+            </div>
+            <div class="text-muted pt-3" id="mobile"> <span class="fas fa-lock"></span> Your information is save </div>
+        </div>
+    </div>
+    <div class="text-muted"> <span class="fas fa-lock"></span> Your information is save </div>
+    
+     </form>
+</div>
+{% block javascript %}
+<script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+<script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+<script type='text/javascript'></script>
+<!-- Include the PayPal JavaScript SDK -->
+<script src="https://www.paypal.com/sdk/js?client-id=ARJYo4tpGB7jYrvnr_5un-9Df2UE4UszsBA2Nm_LE3VSjnSTrNqEVYrYFnNJyWlHiKoErXIZh5T0vRDW&currency=USD"></script>
+<script> $(function() {
+    $("#payb").click(function() {
+        $("#files").remove();
+    });
+}); </script>
+<script>
+// Render the PayPal button into #paypal-button-container
+paypal.Buttons({
+
+style: {
+size: 'responsive',
+color: 'blue',
+fundingicons:'true',
+
+},
+// Set up the transaction
+createOrder: function(data, actions) {
+return actions.order.create({
+purchase_units: [{
+amount: {
+    value: '{{cart_total_price}}'
+}
+}]
+});
+},
+
+// Finalize the transaction
+onApprove: function(data, actions) {
+return actions.order.capture().then(function(orderData) {
+// Successful capture! For demo purposes:
+console.log('Capture result', orderData, JSON.stringify(orderData, null, 2));
+var transaction = orderData.purchase_units[0].payments.captures[0];
+
+alert('Transaction '+ transaction.status + ': ' + transaction.id + '\n\nSee console for all available details');
+document.getElementById('payb').click();
+
+// Replace the above to show a success message within this page, e.g.
+// const element = document.getElementById('paypal-button-container');
+// element.innerHTML = '';
+// element.innerHTML = '<h3>Thank you for your payment!</h3>';
+// Or go to another URL:  actions.redirect('thank_you.html');
+});
+}
+
+
+}).render('#paypal-button-container');
+</script>
+{% endblock %}
+
+                                </body>
+                            </html>

@@ -1,0 +1,68 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    {% load crispy_forms_tags %} 
+    {% load static %}
+    <title>{% block title %} Login {% endblock  %}</title>
+    
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+     {% block stylesheet %}
+	<link href="https://fonts.googleapis.com/css?family=Lato:300,400,700&display=swap" rel="stylesheet">
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css">
+	
+	<link rel="stylesheet" href="{%static 'login/css/style.css' %}">
+    {% endblock  %}
+	</head>
+	<body style="background-image: url(shop/images/hero-side-bg.png);">
+	<section class="ftco-section">
+		<div class="container">
+			<div class="row justify-content-center">
+				<div class="col-md-6 text-center mb-5">
+					<h2 class="heading-section">Connexion</h2>
+				</div>
+			</div>
+			<div class="row justify-content-center">
+				<div class="col-md-6 col-lg-4">
+					<div class="login-wrap p-0">
+		      	<h3 class="mb-4 text-center">Have an account?</h3>
+		      	<form action="{% url 'shop:login' %}" method="post" class="signin-form">
+		      		<div class="form-group">
+                        {{ form|crispy }}
+                </div>
+                {% csrf_token %}
+
+	            <div class="form-group">
+                    <input type="submit" value="Connexion" class="form-control btn btn-primary submit px-3">
+	            </div>
+	            <div class="form-group d-md-flex">
+	            	<div class="w-50">
+		            	<label class="checkbox-wrap checkbox-primary">Remember Me
+									  <input type="checkbox" checked>
+									  <span class="checkmark"></span>
+									</label>
+								</div>
+	            </div>
+	          </form>
+	          <p class="w-100 text-center">&mdash; Vous n'avez pas de compte ? &mdash;</p>
+	          <div class="social d-flex text-center">
+                  <a href="{% url 'shop:register'%}" class="px-2 py-2 mr-md-1 rounded"><span ></span> S'inscrire</a>
+                  <a href="{% url 'shop:shop'%}" class="px-2 py-2 mr-md-1 rounded"><span ></span> Retourner</a>
+	          </div>
+		      </div>
+				</div>
+			</div>
+		</div>
+	</section>
+    {% block scripts %}
+
+	<script src="{% static 'login/js/jquery.min.js' %}"></script>
+  <script src="{% static 'login/js/popper.js' %}"></script>
+  <script src="{% static 'login/js/bootstrap.min.js' %}"></script>
+  <script src="{% static 'login/js/main.js' %}"></script>
+  {% endblock%}
+
+	</body>
+</html>
+

@@ -1,0 +1,117 @@
+{% extends 'clients/shop.html' %}
+{% block title %} A6 Negoce {% endblock  %}
+  {% block content %}
+  
+  <body class="sub_page">
+    <div class="hero_area">
+      <!-- header section strats -->
+      <header class="header_section">
+        <div class="container-fluid">
+          <nav class="navbar navbar-expand-lg custom_nav-container">
+            <a class="navbar-brand" href="{%url 'shop:shop'%}">
+                
+              {% load static %}
+                          <img src="{% static 'shop/images/negoce.jpg' %}" alt="My image"/>
+            </a>
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
+              aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+              <span class="navbar-toggler-icon"></span>
+            </button>
+  
+            <div class="collapse navbar-collapse" id="navbarSupportedContent">
+              <ul class="navbar-nav  ">
+                <li class="nav-item">
+                  <a class="nav-link" href="{%url 'shop:shop'%}">Accueil </a>
+                </li>
+                <li class="nav-item">
+                  <a class="nav-link" href="{%url 'shop:productList'%}">Produits </a>
+                </li>
+                
+                {% if request.user.is_authenticated and request.user.is_costumer%}
+              <li class="nav-item active">
+                <a class="nav-link" href=""> Mes commandes <span class="sr-only">(current)</span></a>
+              </li>
+              
+              <li class="nav-item">
+                <a class="nav-link" href="{%url 'shop:logout'%}">Logout</a>
+              </li>
+              {%endif%}
+              <li class="nav-item">
+                <a href="{%url 'shop:cart_detail'%}" class="nav-link" class="nav-link navbar-link-2 waves-effect">
+                  
+                  <i class="fas fa-shopping-cart"></i>
+                  <span   class="badge badge-pill red">{{cart|length}}</span>
+  
+  
+                </a>
+                
+              </li>
+            </ul>
+            
+            <div class="user_option">
+              
+              <a href="">
+                {% if request.user.is_authenticated and request.user.is_costumer%}
+  
+                Bienvenu {{request.user.first_name}}!
+                
+                
+                {%else%}
+                  <span>
+                    <a href="{%url 'shop:login'%}">Login </a>
+                  </span>
+                  {% endif %}
+                </a>
+               
+                <form method="POST" action="{%url 'shop:rechercher'%}" class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
+                  <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
+                </form>
+              </div>
+            </div>
+            <div>
+              <div class="custom_menu-btn ">
+                <button>
+                  <span class=" s-1">
+  
+                  </span>
+                  <span class="s-2">
+  
+                  </span>
+                  <span class="s-3">
+  
+                  </span>
+                </button>
+              </div>
+            </div>
+  
+          </nav>
+        </div>
+      </header>
+      <!-- end header section -->
+    </div>
+  
+<table class="table">
+    <thead class="table-success">
+      <tr>
+       
+        <th scope="col">Id</th>
+        <th scope="col">Address</th>
+        <th scope="col">Code postal</th>
+        <th scope="col">City</th>
+        <th scope="col">Created</th>
+      </tr>
+    </thead>
+    <tbody>
+        {%  for order in orders  %}
+      <tr>
+        <th scope="row"> {{ order.id }}</th>
+        <td> {{ order.address }}</td>
+        <td> {{ order.postal_code }}</td>
+        <td>{{ order.city }}</td>
+        <td> {{ order.created }}</td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+  
+{% endblock %}

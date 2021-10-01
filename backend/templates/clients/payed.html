@@ -1,0 +1,104 @@
+<!doctype html>
+                        <html>
+                            <head>
+                                <meta charset='utf-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                {% load static %}
+                                <title>{% block title %} Panier {% endblock  %}</title>
+                                {% block stylesheet %}                                
+                                <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
+                                <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+                                <link href='{% static "order.css" %}' rel='stylesheet'>
+                                
+                                {% endblock  %}
+                                
+                                
+                                </head>
+                                <body oncontextmenu='return false' class='snippet-body'>
+                                <nav class="bg-white">
+    <div class="d-flex align-items-center">
+        <div class="logo"> <a href="{% url 'shop:shop' %}" class="text-uppercase">A6 negoce</a> </div>
+        <div class="ml-auto"> <a href="#" class="text-uppercase">Checkout</a> </div>
+    </div>
+</nav>
+<header>
+    <div class="d-flex justify-content-center align-items-center pb-3">
+        <div class="px-sm-5 px-2 active">PANIER  </div>
+        <div class="px-sm-5 px-2 ">CHECKOUT</div>
+        <div class="px-sm-5 px-2">TERMINE <span class="fas fa-check"></span></div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar-f bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+</header>
+<div class="wrapper">
+    <div class="h4 pt-3"> <span class="fas fa-shield-alt text-primary pr-2"></span> Votre commande a été validée</div>
+
+        <div id="summary" class="bg-white rounded py-2 my-4">
+            <div class="table-responsive">
+                <table class="table table-borderless w-75">
+                    <tbody>
+                        <tr class="text-muted">
+                            <td>Numero de votre commande</td>
+                            <td>:</td>
+                            <td>{{ order.id }}</td>
+                        </tr>
+                        
+                        
+                    </tbody>
+                </table>
+            </div>
+            <div class="border-top py-2 d-flex align-items-center ml-2 font-weight-bold">
+                <p>Merci</p>
+            </div>
+            <div class="row pt-lg-3 pt-2 buttons mb-sm-0 mb-2">
+                <div class="col-md-6">
+                    <a href="{%url 'shop:productList'%}" class="btn text-uppercase">POURSUIVRE VOS ACHATS</a>
+                </div>
+            </div>
+        </div>
+                    
+                   
+                    
+            
+            <input type="checkbox" checked> <label>Shipping address is same as billing</label>
+           
+            
+            <div class="text-muted pt-3" id="mobile"> <span class="fas fa-lock"></span> Your information is save </div>
+      
+  
+    <div class="text-muted"> <span class="fas fa-lock"></span> Your information is save </div>
+</div>
+                                 {% block javascript %}
+                                <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+                                <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+                                <script type='text/javascript'></script>
+                                {% endblock %}
+
+
+
+                                </body>
+                            </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    

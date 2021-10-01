@@ -1,0 +1,155 @@
+<!doctype html>
+                        <html>
+                            <head>
+                                <meta charset='utf-8'>
+                                <meta name='viewport' content='width=device-width, initial-scale=1'>
+                                {% load static %}
+                                <title>{% block title %} Panier {% endblock  %}</title>
+                                {% block stylesheet %}                                
+                                <link href='https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css' rel='stylesheet'>
+                                <link href='https://use.fontawesome.com/releases/v5.7.2/css/all.css' rel='stylesheet'>
+                                <link href='{% static "order.css" %}' rel='stylesheet'>
+                                
+                                {% endblock  %}
+                                
+                                
+                                </head>
+                                <body oncontextmenu='return false' class='snippet-body'>
+                                <nav class="bg-white">
+    <div class="d-flex align-items-center">
+        <div class="logo"> <a href="#" class="text-uppercase">A6 negoce</a> </div>
+        <div class="ml-auto"> <a href="#" class="text-uppercase">Checkout</a> </div>
+    </div>
+</nav>
+<header>
+    <div class="d-flex justify-content-center align-items-center pb-3">
+        <div class="px-sm-5 px-2 active">PANIER  <span class="fas fa-check"></span></div>
+        <div class="px-sm-5 px-2 ">CHECKOUT</div>
+        <div class="px-sm-5 px-2">TERMINE</div>
+    </div>
+    <div class="progress">
+        <div class="progress-bar-p bg-success" role="progressbar" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
+    </div>
+</header>
+<div class="wrapper">
+    <div class="h5 large">Votre panier</div>
+    <div class="row">
+        <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1">
+            <div class="mobile h5">Produits</div>
+            <div id="details" class="bg-white rounded pb-5">
+                <div id="cart" class="bg-white rounded">
+                    {% for item in cart.values %}
+                    {% with product=item.product %}
+                    <div class="d-flex justify-content-between align-items-center">
+                        
+                        <div class="h6">Produit</div>
+                        <div class="h6"> <a href="#">Supprimer</a> </div>
+                    </div>
+                    <div class="d-flex jusitfy-content-between align-items-center pt-3 pb-2 border-bottom">
+                        <div class="item pr-2"> <img src="{% if product.image %}{{ product.image.url}} {% else %}{% static 'img/no_image.png' %}{% endif %}" alt="" width="80" height="80">
+                            <div class="number">{{ item.quantity }}</div>
+                        </div>
+                        <div class="d-flex flex-column px-3"> <b class="h5">{{ product.name }}</b> <a href="#" class="h5 text-primary">{{ product.brand }}</a> </div>
+                        
+                    </div><div class="d-flex align-items-center">
+                            <div class="display-5">Prix</div>
+                            <div class="ml-auto font-weight-bold">{{ item.price }} DH</div>
+                        </div>
+                        <div class="d-flex align-items-center py-2">
+                            <div class="display-5">Total</div>
+                            <div class="ml-auto d-flex">
+                                <div class="text-primary text-uppercase px-3">Mad</div>
+                                <div class="font-weight-bold">{{ item.total_price }} DH</div>
+                            </div>
+                        </div>
+                        
+                        
+                    
+                         <form action="{% url 'shop:cart_update' product.id %}" method="post">
+                        {% csrf_token %}
+                        <input type="number" name="quantity" value="{{ item.quantity }}">
+                       <div class="row pt-lg-3 pt-2 buttons mb-sm-0 mb-2"><input class="btn text-white ml-auto" type="submit" value="Modifer">
+                    </form> 
+                    <form action="{% url 'shop:cart_remove' product.id %}" method="post">
+                        <input class="btn text-white ml-auto" type="submit" value="Supprimer">
+                        {% csrf_token %}
+                        </form></div>
+               
+                    {% endwith %}
+                    {% endfor %}
+                    
+                   
+                    
+                </div>
+            </div> <input type="checkbox" checked> <label>Shipping address is same as billing</label>
+           
+        </div>
+        <div class="col-lg-6 col-md-8 col-sm-10 offset-lg-0 offset-md-2 offset-sm-1 pt-lg-0 pt-3">
+            <div id="cart" class="bg-white rounded">
+                <div class="d-flex justify-content-between align-items-center">
+                    <div class="h6">Cart Summary</div>
+                    <div class="h6"> <a href="#">Edit</a> </div>
+                </div>
+                <div class="d-flex align-items-center">
+                    <div class="display-5">Sous-total</div>
+                    <div class="ml-auto font-weight-bold">{{cart_total_price}} DH</div>
+                </div>
+                <div class="d-flex align-items-center py-2 border-bottom">
+                    <div class="display-5">Article</div>
+                    <div class="ml-auto font-weight-bold">{{cart|length}}</div>
+                </div>
+                <div class="d-flex align-items-center py-2">
+                    <div class="display-5">Total TTC</div>
+                    <div class="ml-auto d-flex">
+                    <div class="text-primary text-uppercase px-3">MAD</div>
+                        <div class="font-weight-bold">{{cart_total_price}} DH</div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="row pt-lg-3 pt-2 buttons mb-sm-0 mb-2">
+                <div class="col-md-6">
+                    <a href="{%url 'shop:productList'%}" class="btn text-uppercase">POURSUIVRE VOS ACHATS</a>
+                </div>
+                <div class="col-md-6 pt-md-0 pt-3">
+                    <a href="{% url 'shop:order_create' %}" class="btn text-white ml-auto"> <span class="fas fa-lock"></span> Finaliser votre commande </a>
+                </div>
+            </div>
+            <div class="text-muted pt-3" id="mobile"> <span class="fas fa-lock"></span> Your information is save </div>
+        </div>
+    </div>
+    <div class="text-muted"> <span class="fas fa-lock"></span> Your information is save </div>
+</div>
+                                 {% block javascript %}
+                                <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js'></script>
+                                <script type='text/javascript' src='https://stackpath.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.bundle.min.js'></script>
+                                <script type='text/javascript'></script>
+                                {% endblock %}
+
+
+
+                                </body>
+                            </html>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+    
