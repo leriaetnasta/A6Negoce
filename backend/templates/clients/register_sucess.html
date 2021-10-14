@@ -1,7 +1,0 @@
-{% extends "clients/base.html" %}
-{% block title %}Bienvenue{% endblock %}
-{% block content %}
- <h1>Bienvenue {{ new_user.first_name }}!</h1>
- <p>Votre compte à été créé avec succès. <a
-href="{% url 'shop:login' %}">Connexion</a>.</p>
-{% endblock %}

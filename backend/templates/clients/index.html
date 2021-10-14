@@ -51,7 +51,7 @@
               <a href="">
                 {% if request.user.is_authenticated and request.user.is_costumer%}
 
-                Bienvenu {{request.user.first_name}}!
+                Bienvenu {{request.user.first_name}}
                 
                 
                 {%else%}
@@ -62,7 +62,9 @@
                 </a>
                
                 <form method="POST" action="{%url 'shop:rechercher'%}" class="form-inline my-2 my-lg-0 ml-0 ml-lg-4 mb-3 mb-lg-0">
-                  {% csrf_token %}
+                 {% csrf_token %}
+                  <input class="form-control mr-sm-2" type="search" name ="cle" placeholder="Rechercher" aria-label="Rechercher">
+                  
                   <button class="btn  my-2 my-sm-0 nav_search-btn" type="submit"></button>
                 </form>
               </div>
@@ -324,18 +326,18 @@ A6 negoce est une société Commerciale; celle-ci est spécialisée dans l'impor
               <div class="img_container ">
                 <div class="box b-1">
                   <div class="img-box">
-                    <img src="media/images/t-1.jpg" alt="">
+                    <img src="media/images/alum.png" alt="">
                   </div>
                   <div class="img-box">
-                    <img src="media/images/t-2.jpg" alt="">
+                    <img src="media/images/paper.png" alt="">
                   </div>
                 </div>
                 <div class="box b-2">
                   <div class="img-box">
-                    <img src="media/images/t-3.jpg" alt="">
+                    <img src="media/images/film.png" alt="">
                   </div>
                   <div class="img-box">
-                    <img src="media/images/t-4.jpg" alt="">
+                    <img src="media/images/bag.png" alt="">
                   </div>
                 </div>
               </div>
