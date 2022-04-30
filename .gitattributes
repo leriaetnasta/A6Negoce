@@ -1,2 +1,3 @@
-*.html linguist-detectable=true
-*.css linguist-detectable=true
+*.html linguist-detectable=false
+*.htm inguist-detectable=false
+*.css linguist-vendored=false
